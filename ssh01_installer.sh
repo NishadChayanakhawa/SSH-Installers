@@ -67,7 +67,7 @@ checkFile()
 #*****************************************************************************************************
 replaceParameter()
 {
-  if [ ! "$(cat $1 | grep $2)" = ""  ];then
+  if [ ! "$(cat $1 | grep $2)" == ""  ];then
     read -p "  Enter value for "$2":" parameterValue
     sed -i 's/'$2'/'$parameterValue'/g' $1
   fi
@@ -108,7 +108,7 @@ printf "# Checking git connectivity........."
 gitTestFile='raw.githubusercontent.com/NishadChayanakhawa/SSH99-TrainingAndResearch/master/TestToken'
 gitToken=$1"@"
 gitTestFileFullPath=$linkPrefix$gitToken$gitTestFile
-if [ $(curl -s $gitTestFileFullPath) = "Success" ]; then
+if [ $(curl -s $gitTestFileFullPath) == "Success" ]; then
   printf $frmtSuc"Successful"$frmtEnd"\n"
 else
   printf "Failed\n"
@@ -192,7 +192,7 @@ printf $frmtSuc"Updated. Test mail sent to nishad.chayanakhawa@gmail.com"$frmtEn
 # Design:
 #*****************************************************************************************************
 printf "# Updating /jffs/scripts/services-start for muttrc........."
-if [ "$(cat /jffs/scripts/services-start | grep MuttRCCustomSettings-START)" = "" ];then
+if [ "$(cat /jffs/scripts/services-start | grep MuttRCCustomSettings-START)" == "" ];then
   cat $WorkingDirectory"/SSH01-SendRawData/muttrc" >> /jffs/scripts/services-start
   printf $frmtSuc"Updated"$frmtEnd"\n"
 else
@@ -205,7 +205,7 @@ fi
 # Design:
 #*****************************************************************************************************
 printf "# Checking cronjob........."
-if [ "$(cat /jffs/scripts/services-start | grep CRONJ_SSH01)" = "" ];then
+if [ "$(cat /jffs/scripts/services-start | grep CRONJ_SSH01)" == "" ];then
   echo "#CRONJOB entry for SSH01-SendRawData. Scheduled to run at 05:00 am" >> /jffs/scripts/services-start
   echo "cru a CRONJ_SSH01 \"00 05 * * * "$WorkingDirectory"/SSH01-SendRawData/sendRawData.sh\"" >> /jffs/scripts/services-start
   printf $frmtSuc"Added CRONJ_SSH01"$frmtEnd"\n"
